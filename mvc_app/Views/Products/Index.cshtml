@@ -1,0 +1,37 @@
+﻿@model List<mvc_app.Models.Product>
+
+@{
+    ViewData["Title"] = "Магазин";
+}
+
+<h1>Список товаров</h1>
+
+<p>
+    @if (User.IsInRole("Администратор магазина"))
+    {
+        <a asp-action="Create">Добавить новый товар</a>
+    }
+</p>
+
+
+<input class="search_string" type="text" id="searchString" placeholder="Наименование товара" oninput="searchProduct()" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function searchProduct() {
+        var searchString = document.getElementById('searchString').value;
+        $.ajax({
+            url: '/Products/GetProductsByName',
+            data: { 'product_name': searchString },
+            success: function (data) {
+                document.getElementById('products_container').innerHTML = data;
+            }
+        });
+    }
+</script>
+<div id="products_container" class="d-flex flex-wrap">
+
+    @Html.Partial("_Products", Model)
+
+</div>
+

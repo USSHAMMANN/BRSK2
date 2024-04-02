@@ -1,0 +1,22 @@
+﻿@model mvc_app.Models.UserLogin
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Авторизация</h1>
+<div class="form_auth_block">
+    <div class="form_auth_block_content">
+        <form asp-action="Login" class="form_auth_style" method="post" id="loginForm">
+            <label>Введите Ваше имя</label>
+            <input asp-for="@Model.Login" type="text" placeholder="Введите Ваше имя" required>
+            <label>Введите Ваш пароль</label>
+            <input asp-for="@Model.Password" type="password" placeholder="Введите пароль" required>
+            <button class="form_auth_button" type="submit">Войти</button>
+        </form>
+    </div>
+</div>
+@if (TempData["IncorrectLogin"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["IncorrectLogin"]
+    </div>
+}

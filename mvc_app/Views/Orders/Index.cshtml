@@ -1,0 +1,46 @@
+﻿@model List<mvc_app.Models.Order>
+
+@if (!User.IsInRole("Клиент"))
+{
+    <input class="search_string" type="text" id="searchString" placeholder="Имя пользователя" oninput="searchUser()" />
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function searchUser() {
+        var searchString = document.getElementById('searchString').value;
+            $.ajax({
+                url: '/Orders/GetOrdersByUserName',
+                data: { 'userName': searchString },
+                success: function (data) {
+                    document.getElementById('ordersContainer').innerHTML = data;
+                }
+            });
+    }
+</script>
+
+@if (User.IsInRole("Клиент"))
+{
+    @foreach (var item in Model)
+    {
+        <div class="order-card">
+            <h2>Заказ №@item.OrderId</h2>
+            <p>Дата заказа: @item.OrderDate</p>
+            <h3>Список товаров:</h3>
+            <details>
+                <ul>
+                    @foreach (var orderList in item.OrderLists)
+                    {
+                        <li>@orderList.Product.ProductName - @orderList.Product.ProductPrice руб.</li>
+                    }
+                </ul>
+            </details>
+        </div>
+    }
+}
+else
+{
+    <div id="ordersContainer">
+        @Html.Partial("_Orders", Model)
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿@model mvc_app.Models.UserRegistration
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Регистрация</h1>
+<div class="form_auth_block">
+    <div class="form_auth_block_content">
+        <form asp-action="Registration" class="form_auth_style" method="post" id="loginForm">
+            <label>Имя</label>
+            <input asp-for="@Model.UserName" type="text" placeholder="Введите Ваше имя" required>
+            <label>Логин</label>
+            <input asp-for="@Model.UserLogin" type="text" placeholder="Введите Ваш логин" required>
+            <label>Пароль</label>
+            <input asp-for="@Model.UserPassword" type="password" placeholder="Введите пароль" required>
+            <label>Электронная почта</label>
+            <input asp-for="@Model.UserEmail" type="email" placeholder="Введите электронную почту" required>
+            <button class="form_auth_button" type="submit">Регистрация</button>
+        </form>
+    </div>
+</div>
+
+@if (TempData["IncorrectRegistration"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["IncorrectRegistration"]
+    </div>
+}

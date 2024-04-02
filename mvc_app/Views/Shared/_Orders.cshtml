@@ -1,0 +1,21 @@
+﻿@model List<mvc_app.Models.Order>
+@foreach (var group in Model.GroupBy(order => order.User.UserId))
+{
+    <details>
+        <summary>Пользователь: @group.First().User.UserName</summary>
+        @foreach (var item in group)
+        {
+            <div class="order-card">
+                <h2>Заказ №@item.OrderId</h2>
+                <p>Дата заказа: @item.OrderDate</p>
+                <h3>Список товаров:</h3>
+                <ul>
+                    @foreach (var orderList in item.OrderLists)
+                    {
+                        <li>@orderList.Product.ProductName - @orderList.Product.ProductPrice руб.</li>
+                    }
+                </ul>
+            </div>
+        }
+    </details>
+}

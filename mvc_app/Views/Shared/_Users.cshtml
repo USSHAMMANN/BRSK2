@@ -1,0 +1,12 @@
+﻿@model List<mvc_app.Models.User>
+@foreach(var user in Model)
+{
+    <div class="user">
+        <p>Идентификатор: @user.UserId</p>
+        <p>Имя: @user.UserName</p>
+        <p>Логин: @user.UserLogin</p>
+        <p>Почта: @user.UserEmail</p>
+        <p>Роль: @user.UserRoleNavigation.RoleName</p>
+        <a asp-action="Edit" asp-route-user_id="@user.UserId">Управление правами доступа</a>
+    </div>
+}

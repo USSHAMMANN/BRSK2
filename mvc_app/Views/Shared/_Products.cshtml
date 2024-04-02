@@ -1,0 +1,28 @@
+﻿@model List<mvc_app.Models.Product>
+@foreach (var item in Model)
+{
+
+    <div class="product">
+        <img src="@item.MainImage" alt="Изображение">
+        <p font-size: 16px;>Название: @item.ProductName</p>
+        <p font-size: 14px;>Описание: @item.ProductDescription</p>
+        <p font-size: 18px;>Цена: @item.ProductPrice</p>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Клиент"))
+        {
+            <form method="post" asp-controller="Products" asp-action="AddToCart" class="add-to-cart-form">
+                <input type="hidden" name="product_id" value="@item.ProductId" />
+                <button type="submit" class="btn-success">Добавить в корзину</button>
+            </form>
+        }
+        <div class="col">
+            @if (User.IsInRole("Администратор магазина"))
+            {
+                <a asp-action="Edit" asp-route-product_id="@item.ProductId">Редактировать</a>
+                <a asp-action="Delete" asp-route-product_id="@item.ProductId">Удалить</a>
+            }
+        </div>
+    </div>
+
+
+}

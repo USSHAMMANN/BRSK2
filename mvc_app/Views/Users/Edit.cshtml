@@ -1,0 +1,22 @@
+﻿@model mvc_app.Models.User
+
+<div class="user">
+    <p>Идентификатор: @Model.UserId</p>
+    <p>Имя: @Model.UserName</p>
+    <p>Логин: @Model.UserLogin</p>
+    <p>Почта: @Model.UserEmail</p>
+@*     <p>Роль: @Model.UserRoleNavigation.RoleName</p>
+ *@</div>
+
+
+<form method="post" asp-action="SetRole" asp-route-user_id="@Model.UserId">
+    <select name="role">
+        <option value="Admin">Администратор</option>
+        <option value="SysAdmin">Системный администратор</option>
+        <option value="Client">Клиент</option>
+    </select>
+    <button type="submit">Изменить роль</button>
+</form>
+
+
+<a asp-action="Index">Назад</a>

@@ -1,0 +1,29 @@
+﻿@model List<mvc_app.Models.User>
+
+@{
+    ViewData["Title"] = "Пользователи";
+}
+
+<h1>Список пользователей</h1>
+<input class="search_string" type="text" id="searchString" placeholder="Имя пользователя" oninput="searchProduct()" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function searchProduct() {
+        var searchString = document.getElementById('searchString').value;
+        $.ajax({
+            url: '/Users/GetUsersByName',
+            data: { 'username': searchString },
+            success: function (data) {
+                document.getElementById('users_container').innerHTML = data;
+            }
+        });
+    }
+</script>
+
+
+<div id="users_container" class="users_container">
+
+    @Html.Partial("_Users", Model)
+
+</div>
